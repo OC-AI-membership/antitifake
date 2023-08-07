@@ -18,6 +18,8 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     * ~~~~
 
 ### 🧿 Antitifake is composed of:       
+- Service ~~~~
+    * ~~~~
 <!--
 - Bespoke GoLang based control plane components
 - [eBPF](https://ebpf.io/) based data-path forwarding
