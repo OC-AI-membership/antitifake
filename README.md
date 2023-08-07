@@ -1,4 +1,4 @@
-# antitifake
+# Antitifake
 Consolidated deepfake detection solution
 <!--
 [![eBPF Emerging Project](https://img.shields.io/badge/ebpf.io-Emerging--App-success)](https://ebpf.io/projects#loxilb) [![Go Report Card](https://goreportcard.com/badge/github.com/loxilb-io/loxilb)](https://goreportcard.com/report/github.com/loxilb-io/loxilb) ![build workflow](https://github.com/loxilb-io/loxilb/actions/workflows/docker-image.yml/badge.svg) ![sanity workflow](https://github.com/loxilb-io/loxilb/actions/workflows/basic-sanity.yml/badge.svg) ![apache](https://img.shields.io/badge/license-Apache-blue.svg) [![Info][docs-shield]][docs-url] [![Slack](https://img.shields.io/badge/community-join%20slack-blue)](https://www.loxilb.io/members)  
@@ -29,7 +29,18 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 -->
 
 
+### To-Do :       
+- Import SeqDeepFake to antitifake
+    * analyze gradio code
+    * integrate into app.py
+- Use grounding dino for visualize
+    * analyze grounding dino and import
+- Import other baelines
+    * [Candidates](https://github.com/Daisy-Zhang/Awesome-Deepfakes-Detection)
 
+
+
+ 
 ### 📚 Check Antitifake [Documentation](https:///) for more info.   
 
 [docs-shield]: https://img.shields.io/badge/info-docs-blue
