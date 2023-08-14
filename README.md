@@ -8,27 +8,18 @@ Consolidated deepfake detection solution
 
 Antitifake is an open source deepfake detection tool for consolidated methods.
 
+![demo](https://github.com/riverallzero/antitifake/assets/93754504/c984f90c-799e-49f5-b3a9-b9057c34d4d5)
+
 ### 📦 Antitifake aims to provide the following :   
-- Service ~~~~
-    * ~~~~
-    * ~~~~
--  ~~~~
--  ~~~~
-    * ~~~~
-    * ~~~~
+#### Detect
+- Facial Attributes: bangs, eyeglasses, beard, smiling, young
+- Facial Components: nose, eye, eyebrow, lip, hair
+
 
 ### 🧿 Antitifake is composed of:       
-- Service ~~~~
-    * ~~~~
-<!--
-- Bespoke GoLang based control plane components
-- [eBPF](https://ebpf.io/) based data-path forwarding
-   * Home-grown stack with advanced features like [Conntrack](https://thermalcircle.de/doku.php?id=blog:linux:connection_tracking_1_modules_and_hooks), QoS etc
-   * Complete kernel networking bypass
-   * Highly scalable with low-latency & high throughput   
-- GoLang powered easy to use APIs/Interfaces infra
-- Seamless integration with goBGP based routing stack
--->
+#### Model
+- [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake): detect deepfake and manipulated part(attributes, components)
+- [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO): boxing the manipulated part on image
 
 
 ### To-Do :       
