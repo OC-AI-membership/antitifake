@@ -21,6 +21,8 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 - [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake): detect deepfake and manipulated part(attributes, components)
 - [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO): boxing the manipulated part on image
 
+#### Code
+<code>python [app.py](https://github.com/riverallzero/antitifake/blob/main/app.py)</code>
 
 ### To-Do :       
 - Import SeqDeepFake to antitifake
