@@ -1,1 +1,2 @@
 best_model_adaptive.pt filter=lfs diff=lfs merge=lfs -text
+groundingdino_swint_ogc.pth filter=lfs diff=lfs merge=lfs -text
