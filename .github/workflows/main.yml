@@ -1,4 +1,4 @@
-- name: puhuk
+- name: @puhuk
   # You may pin to the exact commit or the version.
   # uses: ohnogumi/auto-reviewers@0c386de4ee07c65fa991d4954981d504bdd6a984
   uses: ohnogumi/auto-reviewers@v0.0.5
