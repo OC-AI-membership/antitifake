@@ -33,7 +33,8 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 - Import other baselines
     * [Candidates](https://github.com/Daisy-Zhang/Awesome-Deepfakes-Detection)
 - Models to Be Tested
-    * [DNA-Det](https://github.com/ICTMCG/DNA-Det)
+    * [DNA-Det](https://github.com/ICTMCG/DNA-Det) : a method for Deepfake Network Architecture Attribution to attribute fake images on architecture-level.
+
 
 
  
