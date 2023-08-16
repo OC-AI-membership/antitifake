@@ -32,7 +32,8 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     * analyze grounding dino and import
 - Import other baselines
     * [Candidates](https://github.com/Daisy-Zhang/Awesome-Deepfakes-Detection)
-
+- Models to Be Tested
+    * [DNA-Det](https://github.com/ICTMCG/DNA-Det)
 
 
  
