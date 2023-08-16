@@ -30,7 +30,7 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     * integrate into app.py
 - Use grounding dino for visualize
     * analyze grounding dino and import
-- Import other baelines
+- Import other baselines
     * [Candidates](https://github.com/Daisy-Zhang/Awesome-Deepfakes-Detection)
 
 
