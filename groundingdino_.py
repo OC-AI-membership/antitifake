@@ -1,7 +1,7 @@
-from groundingdino.util.inference import load_model, load_image, predict, annotate
+from GroundingDINO.util.inference import load_model, load_image, predict, annotate
 import cv2
 
-CONFIG_PATH = "./GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+CONFIG_PATH = "./GroundingDINO/config/GroundingDINO_SwinT_OGC.py"
 CHECKPOINT_PATH = "./GroundingDINO/groundingdino_swint_ogc.pth"
 DEVICE = "cuda"
 BOX_THRESHOLD = 0.35
