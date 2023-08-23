@@ -14,17 +14,22 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 ⚠️You have to set **cuda compute capability** before install requirements.txt
 1. ```export TORCH_CUDA_ARCH_LIST=8.6```
 2. ```pip3 install -r requirements.txt```
+3. TruFor weights DownLoad  : [trufor.pth.tar](https://www.grip.unina.it/download/prog/TruFor/TruFor_weights.zip) ```./TruFor/weights/trufor.pth.tar```
 
 ### 📦 Antitifake aims to provide the following :   
 #### Detect
-- Facial Attributes: bangs, eyeglasses, beard, smiling, young
-- Facial Components: nose, eye, eyebrow, lip, hair
+- SeqDeepfake
+    - Facial Attributes: bangs, eyeglasses, beard, smiling, young
+    - Facial Components: nose, eye, eyebrow, lip, hair
+- TruFor
+    - Interprets deepfake detection numerically based on a scale from 0 to 1.
 
 
 ### 🧿 Antitifake is composed of:       
 #### Model
-- [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake): detect deepfake and manipulated part(attributes, components)
-- [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO): boxing the manipulated part on image
+- [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake) : detect deepfake and manipulated part(attributes, components)
+- [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO) : boxing the manipulated part on image
+- [TruFor](https://github.com/grip-unina/TruFor) : Rely on the extraction of both high-level and low-level traces through a transformer-based fusion architecture that combines the RGB image and a learned noise-sensitive fingerprint.
 
 #### Code
 <code>python [app.py](https://github.com/riverallzero/antitifake/blob/main/app.py)</code>
@@ -39,7 +44,7 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     * [Candidates](https://github.com/Daisy-Zhang/Awesome-Deepfakes-Detection)
 - Models to Be Tested
     * [DNA-Det](https://github.com/ICTMCG/DNA-Det) : a method for Deepfake Network Architecture Attribution to attribute fake images on architecture-level.
-    * [TruFor](https://github.com/grip-unina/TruFor) : Rely on the extraction of both high-level and low-level traces through a transformer-based fusion architecture that combines the RGB image and a learned noise-sensitive fingerprint.
+
 
 
  
