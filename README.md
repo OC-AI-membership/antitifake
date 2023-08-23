@@ -8,22 +8,24 @@ Consolidated deepfake detection solution
 
 Antitifake is an open source deepfake detection tool for consolidated methods.
 
-![demo](https://github.com/riverallzero/antitifake/assets/93754504/c984f90c-799e-49f5-b3a9-b9057c34d4d5)
+### 📦 Antitifake aims to provide the following :   
+#### Detect
+- SeqDeepfake
+    - Facial Attributes: bangs, eyeglasses, beard, smiling, young
+    - Facial Components: nose, eye, eyebrow, lip, hair
+    
+    ![seqDeepfake_result](./.asset/seqDeepfake_result.png)
+
+- TruFor
+    - Interprets deepfake detection numerically based on a scale from 0 to 1.
+
+    ![trufor_result](./.asset/trufor_result.png)
 
 ### Setting
 ⚠️You have to set **cuda compute capability** before install requirements.txt
 1. ```export TORCH_CUDA_ARCH_LIST=8.6```
 2. ```pip3 install -r requirements.txt```
 3. TruFor weights DownLoad  : [trufor.pth.tar](https://www.grip.unina.it/download/prog/TruFor/TruFor_weights.zip) ```./TruFor/weights/trufor.pth.tar```
-
-### 📦 Antitifake aims to provide the following :   
-#### Detect
-- SeqDeepfake
-    - Facial Attributes: bangs, eyeglasses, beard, smiling, young
-    - Facial Components: nose, eye, eyebrow, lip, hair
-- TruFor
-    - Interprets deepfake detection numerically based on a scale from 0 to 1.
-
 
 ### 🧿 Antitifake is composed of:       
 #### Model
