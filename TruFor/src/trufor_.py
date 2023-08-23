@@ -19,15 +19,11 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 from glob import glob
-
 from PIL import Image
 import torch
 from torch.nn import functional as F
-# from TruFor2.src.config import update_config
-# from TruFor2.src.config import _C as config
 from .config import update_config
 from .config import _C as config
-# from data_core import myDataset
 from .models.cmx.builder_np_conf import myEncoderDecoder as confcmx
 parser = argparse.ArgumentParser(description='Test TruFor')
 parser.add_argument('-gpu', '--gpu', type=int, default=0, help='device, use -1 for cpu')
@@ -39,8 +35,6 @@ parser.add_argument('opts', help="other options", default=None, nargs=argparse.R
 
 args = parser.parse_args()
 update_config(config, args)
-
-# output = args.output
 
 save_np = True
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -54,30 +48,12 @@ if device != 'cpu':
     cudnn.deterministic = config.CUDNN.DETERMINISTIC
     cudnn.enabled = config.CUDNN.ENABLED
 
-# if '*' in input:
-#     list_img = glob(input, recursive=True)
-#     list_img = [img for img in list_img if not os.path.isdir(img)]
-# elif os.path.isfile(input):
-#     list_img = [input]
-# elif os.path.isdir(input):
-#     list_img = glob(os.path.join(input, '**/*'), recursive=True)
-#     list_img = [img for img in list_img if not os.path.isdir(img)]
-# else:
-#     raise ValueError("input is neither a file or a folder")
-
-
-
 def trufor(img):
     save_np = True
 
     img_RGB = np.array(Image.open(img).convert("RGB"))
-    rgb = torch.tensor(img_RGB.transpose(2, 0, 1), dtype=torch.float)
+    rgb = torch.tensor(img_RGB.transpose(2, 0, 1), dtype=torch.float) / 255.0
     rgb = rgb.unsqueeze(0)
-    # test_dataset = myDataset(list_img=img)
-
-    # testloader = torch.utils.data.DataLoader(
-    #     test_dataset,
-    #     batch_size=1)  # 1 to allow arbitrary input sizes
 
     if config.TEST.MODEL_FILE:
         model_state_file = config.TEST.MODEL_FILE
