@@ -1,12 +1,7 @@
 from seqdeepfake_ import attribute_predict, component_predict
 from groundingdino_ import dino_predict
+from TruFor.src.trufor_ import trufor
 import gradio as gr
-from TruFor.src import test
-
-def Trufor_predict(image_path):
-    
-    pass
-    return test.trufor(image_path)
 
 def attribute_make_result(image_path):
     # SeqDeepFake - attribute model
@@ -64,7 +59,7 @@ with gr.Blocks() as demo:
             with gr.Column():
                 result1_output = gr.Textbox(label='is DeepFake?')
 
-        btn.click(Trufor_predict, inputs=[image_input], outputs=[result1_output])
+        btn.click(trufor, inputs=[image_input], outputs=[result1_output])
 
 
 if __name__ == '__main__':

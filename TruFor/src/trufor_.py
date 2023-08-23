@@ -20,17 +20,15 @@ import numpy as np
 from tqdm import tqdm
 from glob import glob
 
+from PIL import Image
 import torch
 from torch.nn import functional as F
-
-path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
-if path not in sys.path:
-    sys.path.insert(0, path)
-
-from config import update_config
-from config import _C as config
-from data_core import myDataset
-
+# from TruFor2.src.config import update_config
+# from TruFor2.src.config import _C as config
+from .config import update_config
+from .config import _C as config
+# from data_core import myDataset
+from .models.cmx.builder_np_conf import myEncoderDecoder as confcmx
 parser = argparse.ArgumentParser(description='Test TruFor')
 parser.add_argument('-gpu', '--gpu', type=int, default=0, help='device, use -1 for cpu')
 parser.add_argument('-in', '--input', type=str, default='../images',
@@ -42,16 +40,10 @@ parser.add_argument('opts', help="other options", default=None, nargs=argparse.R
 args = parser.parse_args()
 update_config(config, args)
 
-input = args.input
-output = args.output
-gpu = args.gpu
-save_np = args.save_np
+# output = args.output
+
 save_np = True
-print('*************')
-print(input)
-absolute_input_path = os.path.abspath(input)
-print("Absolute input path:", absolute_input_path)
-device = 'cuda:%d' % gpu if gpu >= 0 else 'cpu'
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 np.set_printoptions(formatter={'float': '{: 7.3f}'.format})
 
 if device != 'cpu':
@@ -62,115 +54,87 @@ if device != 'cpu':
     cudnn.deterministic = config.CUDNN.DETERMINISTIC
     cudnn.enabled = config.CUDNN.ENABLED
 
-if '*' in input:
-    list_img = glob(input, recursive=True)
-    list_img = [img for img in list_img if not os.path.isdir(img)]
-elif os.path.isfile(input):
-    list_img = [input]
-elif os.path.isdir(input):
-    list_img = glob(os.path.join(input, '**/*'), recursive=True)
-    list_img = [img for img in list_img if not os.path.isdir(img)]
-else:
-    raise ValueError("input is neither a file or a folder")
+# if '*' in input:
+#     list_img = glob(input, recursive=True)
+#     list_img = [img for img in list_img if not os.path.isdir(img)]
+# elif os.path.isfile(input):
+#     list_img = [input]
+# elif os.path.isdir(input):
+#     list_img = glob(os.path.join(input, '**/*'), recursive=True)
+#     list_img = [img for img in list_img if not os.path.isdir(img)]
+# else:
+#     raise ValueError("input is neither a file or a folder")
 
 
 
+def trufor(img):
+    save_np = True
 
+    img_RGB = np.array(Image.open(img).convert("RGB"))
+    rgb = torch.tensor(img_RGB.transpose(2, 0, 1), dtype=torch.float)
+    rgb = rgb.unsqueeze(0)
+    # test_dataset = myDataset(list_img=img)
 
-test_dataset = myDataset(list_img=list_img)
+    # testloader = torch.utils.data.DataLoader(
+    #     test_dataset,
+    #     batch_size=1)  # 1 to allow arbitrary input sizes
 
-testloader = torch.utils.data.DataLoader(
-    test_dataset,
-    batch_size=1)  # 1 to allow arbitrary input sizes
+    if config.TEST.MODEL_FILE:
+        model_state_file = config.TEST.MODEL_FILE
+    else:
+        raise ValueError("Model file is not specified.")
 
-if config.TEST.MODEL_FILE:
-    model_state_file = config.TEST.MODEL_FILE
-else:
-    raise ValueError("Model file is not specified.")
+    print('=> loading model from {}'.format(model_state_file))
+    checkpoint = torch.load(model_state_file, map_location=torch.device(device))
 
-print('=> loading model from {}'.format(model_state_file))
-checkpoint = torch.load(model_state_file, map_location=torch.device(device))
+    if config.MODEL.NAME == 'detconfcmx':
+        
+        model = confcmx(cfg=config)
+    else:
+        raise NotImplementedError('Model not implemented')
 
-if config.MODEL.NAME == 'detconfcmx':
-    from models.cmx.builder_np_conf import myEncoderDecoder as confcmx
-    model = confcmx(cfg=config)
-else:
-    raise NotImplementedError('Model not implemented')
+    model.load_state_dict(checkpoint['state_dict'])
+    model = model.to(device)
 
-model.load_state_dict(checkpoint['state_dict'])
-model = model.to(device)
+    with torch.no_grad():
+        try:
+            rgb = rgb.to(device)
+            model.eval()
 
-with torch.no_grad():
-    for index, (rgb, path) in enumerate(tqdm(testloader)):
-        # filename_img = test_dataset.get_filename(index)
+            det = None
+            conf = None
 
-        if os.path.splitext(os.path.basename(output))[1] == '':  # output is a directory
-            # filename_out = os.path.join(output, os.path.basename(filename_img) + '.npz')
-            path = path[0]
-            root = input.split('*')[0]
+            pred, conf, det, npp = model(rgb)
 
-            if os.path.isfile(input):
-                sub_path = path.replace(os.path.dirname(root), '').strip()
-            else:
-                sub_path = path.replace(root, '').strip()
+            if conf is not None:
+                conf = torch.squeeze(conf, 0)
+                conf = torch.sigmoid(conf)[0]
+                conf = conf.cpu().numpy()
 
-            if sub_path.startswith('/'):
-                sub_path = sub_path[1:]
+            if npp is not None:
+                npp = torch.squeeze(npp, 0)[0]
+                npp = npp.cpu().numpy()
 
-            filename_out = os.path.join(output, sub_path) + '.npz'
-        else:  # output is a filename
-            filename_out = output
+            if det is not None:
+                det_sig = torch.sigmoid(det).item()
 
-        if not filename_out.endswith('.npz'):
-            filename_out = filename_out + '.npz'
+            pred = torch.squeeze(pred, 0)
+            pred = F.softmax(pred, dim=0)[1]
+            pred = pred.cpu().numpy()
 
-        # by default it does not overwrite
-        if not (os.path.isfile(filename_out)):
-            try:
-                rgb = rgb.to(device)
-                model.eval()
+            out_dict = dict()
+            out_dict['map'] = pred
+            out_dict['imgsize'] = tuple(rgb.shape[2:])
+            if det is not None:
+                out_dict['score'] = det_sig
+                print(det_sig)
+            if conf is not None:
+                out_dict['conf'] = conf
+            if save_np:
+                out_dict['np++'] = npp
+        except:
+            import traceback
 
-                det = None
-                conf = None
-
-                pred, conf, det, npp = model(rgb)
-
-                if conf is not None:
-                    conf = torch.squeeze(conf, 0)
-                    conf = torch.sigmoid(conf)[0]
-                    conf = conf.cpu().numpy()
-
-                if npp is not None:
-                    npp = torch.squeeze(npp, 0)[0]
-                    npp = npp.cpu().numpy()
-
-                if det is not None:
-                    det_sig = torch.sigmoid(det).item()
-
-                pred = torch.squeeze(pred, 0)
-                pred = F.softmax(pred, dim=0)[1]
-                pred = pred.cpu().numpy()
-
-                out_dict = dict()
-                out_dict['map'] = pred
-                out_dict['imgsize'] = tuple(rgb.shape[2:])
-                if det is not None:
-                    out_dict['score'] = det_sig
-                    print(det_sig)
-                if conf is not None:
-                    out_dict['conf'] = conf
-                    print('conf')
-                if save_np:
-                    out_dict['np++'] = npp
-                    print('save')
-
-                from os import makedirs
-
-                makedirs(os.path.dirname(filename_out), exist_ok=True)
-                np.savez(filename_out, **out_dict)
-            except:
-                import traceback
-
-                traceback.print_exc()
-                pass
-
+            traceback.print_exc()
+            pass
+    return det_sig

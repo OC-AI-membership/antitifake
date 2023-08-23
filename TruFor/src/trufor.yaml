@@ -19,4 +19,4 @@ MODEL:
       DETECTION: 'confpool'
       CONF: true
 TEST:
-  MODEL_FILE: './TruFor2/weights/trufor.pth.tar'
+  MODEL_FILE: './TruFor/weights/trufor.pth.tar'
