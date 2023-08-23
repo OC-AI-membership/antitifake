@@ -56,10 +56,11 @@ with gr.Blocks() as demo:
             with gr.Column():
                 image_input = gr.Image(type='filepath')
                 btn = gr.Button(value='Predict')
-            with gr.Column():
                 result1_output = gr.Textbox(label='is DeepFake?')
+            with gr.Column():
+                result2_output = gr.Image(type='pil', width=500)
 
-        btn.click(trufor, inputs=[image_input], outputs=[result1_output])
+        btn.click(trufor, inputs=[image_input], outputs=[result1_output, result2_output])
 
 
 if __name__ == '__main__':

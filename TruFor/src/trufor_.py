@@ -14,17 +14,17 @@ Created in September 2022
 @author: fabrizio.guillaro
 """
 
-import sys, os
+import io
 import argparse
 import numpy as np
-from tqdm import tqdm
-from glob import glob
 from PIL import Image
 import torch
 from torch.nn import functional as F
 from .config import update_config
 from .config import _C as config
 from .models.cmx.builder_np_conf import myEncoderDecoder as confcmx
+import matplotlib.pyplot as plt
+
 parser = argparse.ArgumentParser(description='Test TruFor')
 parser.add_argument('-gpu', '--gpu', type=int, default=0, help='device, use -1 for cpu')
 parser.add_argument('-in', '--input', type=str, default='../images',
@@ -103,7 +103,7 @@ def trufor(img):
             out_dict['imgsize'] = tuple(rgb.shape[2:])
             if det is not None:
                 out_dict['score'] = det_sig
-                print(det_sig)
+                det_sig_rd = round(det_sig,3)
             if conf is not None:
                 out_dict['conf'] = conf
             if save_np:
@@ -113,4 +113,12 @@ def trufor(img):
 
             traceback.print_exc()
             pass
-    return det_sig
+
+        
+        plt.imshow(pred, cmap='RdBu_r', clim=[0,1])
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        image_pil = Image.open(buf)
+
+    return det_sig_rd, image_pil
