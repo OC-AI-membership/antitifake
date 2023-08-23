@@ -34,7 +34,7 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 - [TruFor](https://github.com/grip-unina/TruFor) : Rely on the extraction of both high-level and low-level traces through a transformer-based fusion architecture that combines the RGB image and a learned noise-sensitive fingerprint.
 
 #### Code
-<code>python [app.py](https://github.com/riverallzero/antitifake/blob/main/app.py)</code>
+<code>python [app.py](app.py)</code>
 
 ### To-Do :       
 - Import SeqDeepFake to antitifake
