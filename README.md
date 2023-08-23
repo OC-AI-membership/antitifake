@@ -10,6 +10,11 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 
 ![demo](https://github.com/riverallzero/antitifake/assets/93754504/c984f90c-799e-49f5-b3a9-b9057c34d4d5)
 
+### Setting
+⚠️You have to set **cuda compute capability** before install requirements.txt
+1. ```export TORCH_CUDA_ARCH_LIST=8.6```
+2. ```pip3 install -r requirements.txt```
+
 ### 📦 Antitifake aims to provide the following :   
 #### Detect
 - Facial Attributes: bangs, eyeglasses, beard, smiling, young
