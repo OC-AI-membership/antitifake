@@ -14,7 +14,7 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     - Facial Attributes: bangs, eyeglasses, beard, smiling, young
     - Facial Components: nose, eye, eyebrow, lip, hair
     
-    ![seqDeepfake_result](./.asset/seqDeepfake_result.png)
+    ![seqDeepfake_result](./.asset/SeqDeepFake_result.png)
 
 - TruFor
     - Interprets deepfake detection numerically based on a scale from 0 to 1.
