@@ -27,31 +27,29 @@ with gr.Blocks() as demo:
     with gr.Tab("SeqDeepfake"):
         with gr.Tab("Facial Attributes"):
             with gr.Row():
-                with gr.Column(scale=1, min_width=700):
+                with gr.Column(scale=1, min_width=600):
                     image_path = gr.Image(type='filepath')
                     btn = gr.Button(value='Predict')
                     result1_output = gr.Textbox(label='DeepFake')
                     result2_output = gr.Textbox(label='Attribute')
 
-                with gr.Column(scale=2, min_width=500):
-                    result3_output = gr.Image(type='filepath', width=500)
+                with gr.Column(scale=2, min_width=400):
+                    result3_output = gr.Image(type='filepath', width=400)
                     btn.click(attribute_make_result, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
 
         with gr.Tab("Facial Components"):
             with gr.Row():
-                with gr.Column(scale=1, min_width=700):
+                with gr.Column(scale=1, min_width=600):
                     image_path = gr.Image(type='filepath')
                     btn = gr.Button(value='Predict')
                     result1_output = gr.Textbox(label='DeepFake')
                     result2_output = gr.Textbox(label='Component')
 
-                with gr.Column(scale=2, min_width=500):
-                    result3_output = gr.Image(type='filepath', width=500)
+                with gr.Column(scale=2, min_width=400):
+                    result3_output = gr.Image(type='filepath', width=400)
                     btn.click(component_make_result, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
 
-
     with gr.Tab("Tru For"):
-
         with gr.Row():
             with gr.Column():
                 image_input = gr.Image(type='filepath')
