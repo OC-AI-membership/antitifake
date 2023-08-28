@@ -25,7 +25,6 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 ⚠️You have to set **cuda compute capability** before install requirements.txt
 1. ```export TORCH_CUDA_ARCH_LIST=8.6```
 2. ```pip3 install -r requirements.txt```
-3. TruFor weights DownLoad  : [trufor.pth.tar](https://www.grip.unina.it/download/prog/TruFor/TruFor_weights.zip) ```./TruFor/weights/trufor.pth.tar```
 
 ### 🧿 Antitifake is composed of:       
 #### Model
