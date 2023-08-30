@@ -28,7 +28,7 @@ with gr.Blocks() as demo:
         with gr.Tab("Facial Attributes"):
             with gr.Row():
                 with gr.Column(scale=1, min_width=600):
-                    image_path = gr.Image(type='filepath')
+                    image_path = gr.Image(type='filepath', value='./test/attribute.png')
                     btn = gr.Button(value='Predict')
                     result1_output = gr.Textbox(label='DeepFake')
                     result2_output = gr.Textbox(label='Attribute')
@@ -40,7 +40,7 @@ with gr.Blocks() as demo:
         with gr.Tab("Facial Components"):
             with gr.Row():
                 with gr.Column(scale=1, min_width=600):
-                    image_path = gr.Image(type='filepath')
+                    image_path = gr.Image(type='filepath', value='./test/component.png')
                     btn = gr.Button(value='Predict')
                     result1_output = gr.Textbox(label='DeepFake')
                     result2_output = gr.Textbox(label='Component')
