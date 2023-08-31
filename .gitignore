@@ -1,6 +1,2 @@
 *.jpg
 __pycache__/
-
-## Trufor Model
-TestModel/TruFor/weights/trufor.pth.tar
-TruFor/weights/trufor.pth.tar
