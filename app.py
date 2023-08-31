@@ -52,7 +52,7 @@ with gr.Blocks() as demo:
     with gr.Tab("Tru For"):
         with gr.Row():
             with gr.Column():
-                image_input = gr.Image(type='filepath')
+                image_input = gr.Image(type='filepath', value='./test/trufor.png')
                 btn = gr.Button(value='Predict')
                 result1_output = gr.Textbox(label='is DeepFake?')
             with gr.Column():
