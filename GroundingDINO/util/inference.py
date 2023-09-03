@@ -97,21 +97,17 @@ def predict(
     return boxes, logits.max(dim=1)[0], phrases
 
 
-def annotate(image_source: np.ndarray, boxes: torch.Tensor, logits: torch.Tensor, phrases: List[str]) -> np.ndarray:
+def annotate(image_source: np.ndarray, boxes: torch.Tensor) -> np.ndarray:
     h, w, _ = image_source.shape
     boxes = boxes * torch.Tensor([w, h, w, h])
     xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
-    detections = sv.Detections(xyxy=xyxy)
 
-    labels = [
-        f"{phrase} {logit:.2f}"
-        for phrase, logit
-        in zip(phrases, logits)
-    ]
-
-    box_annotator = sv.BoxAnnotator()
+    # Return the annotated image with only bounding boxes
     annotated_frame = cv2.cvtColor(image_source, cv2.COLOR_RGB2BGR)
-    annotated_frame = box_annotator.annotate(scene=annotated_frame, detections=detections, labels=labels)
+    for box in xyxy:
+        box = box.astype(int)
+        cv2.rectangle(annotated_frame, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 2)
+
     return annotated_frame
 
 
