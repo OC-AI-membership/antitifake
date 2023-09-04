@@ -57,6 +57,9 @@ components_mapping = {
     4: 'lib',
     5: 'hair'
 }
+components_results = {
+    'lib': 'mouth',
+}
 
 
 def attribute_predict(image_path):
@@ -128,9 +131,10 @@ def component_predict(image_path):
     results = caption[0].tolist()
 
     true_or_fake = 'False' if all(val == 0 for val in results) else 'True'
-    mapped_results = [components_mapping[val] for val in results if val != 0]
+    mapped = [components_mapping[val] for val in results if val != 0]
+    mapped_results = [components_results[result] if result in components_results else result for result in mapped]
 
     # Mapping num - component
     result_string = '. '.join(mapped_results) + '.'
 
-    return true_or_fake, result_string, mapped_results
+    return true_or_fake, result_string, mapped
