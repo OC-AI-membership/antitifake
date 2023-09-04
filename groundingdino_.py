@@ -24,7 +24,7 @@ def dino_predict(image_path, text_prompt):
     )
 
     # Annotate the image
-    annotated_frame = annotate(image_source=image_source, boxes=boxes, logits=logits, phrases=phrases)
+    annotated_frame = annotate(image_source=image_source, boxes=boxes)
 
     # Save the annotated image
     output_image_path = "annotated_image.jpg"

@@ -3,6 +3,7 @@ from groundingdino_ import dino_predict
 from TruFor.src.trufor_ import trufor
 import gradio as gr
 
+
 def attribute_make_result(image_path):
     # SeqDeepFake - attribute model
     results = attribute_predict(image_path)
