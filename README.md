@@ -26,7 +26,25 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
     ![trufor_result](./.asset/trufor_result.png)
 
 ### Setting
-⚠️You have to set **cuda compute capability** before install requirements.txt
+#### 1. set trained model files(.pt)
+- this source contain trained model
+  - GPU: NVIDIA RTX A5000
+  - BACKBONE: resnet50
+  - ACC: facial_attributes=50.1550%, facial_components=49.3966%
+- if you want to use your own model
+  1. [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake) ```sh train.sh &```
+  2. put model file in each folder, [📁 facial_attributes](./SeqDeepFake/results/facial_attributes) & [📁 facial_components](./SeqDeepFake/results/facial_components)
+  3. change files [seqdeepfake_.py](./seqdeepfake_.py)
+     ```python
+     # line 10
+     attribute_checkpoint = './SeqDeepFake/results/facial_attributes/best_model_adaptive.pt'
+     component_checkpoint = './SeqDeepFake/results/facial_components/best_model_adaptive.pt'
+     # line 15
+     model_config = Config('./SeqDeepFake/configs/r50.json')
+     ```
+  
+#### 2. to run app.py
+⚠️You must set **cuda compute capability**(TORCH_CUDA_ARCH_LIST=compute capability) before install requirements.txt
 1. ```export TORCH_CUDA_ARCH_LIST=8.6```
 2. ```pip3 install -r requirements.txt```
 

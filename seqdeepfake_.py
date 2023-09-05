@@ -7,8 +7,8 @@ from SeqDeepFake.models.configuration import Config
 import warnings
 warnings.filterwarnings(action='ignore')
 
-attribute_checkpoint = './SeqDeepFake/results/resnet50/facial_attributes/best_model_adaptive.pt'
-component_checkpoint = './SeqDeepFake/results/resnet50/facial_components/best_model_adaptive.pt'
+attribute_checkpoint = './SeqDeepFake/results/facial_attributes/best_model_adaptive.pt'
+component_checkpoint = './SeqDeepFake/results/facial_components/best_model_adaptive.pt'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
