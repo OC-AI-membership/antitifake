@@ -23,44 +23,74 @@ def component_make_result(image_path):
 
 
 with gr.Blocks() as demo:
-    gr.Markdown("DeepFake Detection Demo - OC AI Membership")
+    gr.Markdown('DeepFake Detection Demo - OC AI Membership')
 
-    with gr.Tab("SeqDeepfake"):
-        with gr.Tab("Facial Attributes"):
-            with gr.Row():
-                with gr.Column(scale=1, min_width=600):
-                    image_path = gr.Image(type='filepath', value='./test/attribute.png')
-                    btn = gr.Button(value='Predict')
-                    result1_output = gr.Textbox(label='DeepFake')
-                    result2_output = gr.Textbox(label='Attribute')
-
-                with gr.Column(scale=2, min_width=400):
-                    result3_output = gr.Image(type='filepath', width=400)
-                    btn.click(attribute_make_result, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
-
-        with gr.Tab("Facial Components"):
-            with gr.Row():
-                with gr.Column(scale=1, min_width=600):
-                    image_path = gr.Image(type='filepath', value='./test/component.png')
-                    btn = gr.Button(value='Predict')
-                    result1_output = gr.Textbox(label='DeepFake')
-                    result2_output = gr.Textbox(label='Component')
-
-                with gr.Column(scale=2, min_width=400):
-                    result3_output = gr.Image(type='filepath', width=400)
-                    btn.click(component_make_result, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
-
-    with gr.Tab("Tru For"):
+    with gr.Tab('Facial Attributes'):
+        gr.Markdown('detect - bangs, eyeglasses, beard, smiling, young')
         with gr.Row():
-            with gr.Column():
-                image_input = gr.Image(type='filepath', value='./test/trufor.png')
+            with gr.Column(scale=1, min_width=600):
+                image_path = gr.Image(type='filepath', value='./.asset/attribute.png')
                 btn = gr.Button(value='Predict')
-                result1_output = gr.Textbox(label='is DeepFake?')
-            with gr.Column():
-                result2_output = gr.Image(type='pil', width=500)
+                result1_output = gr.Textbox(label='DeepFake(0-1)')
+                result2_output = gr.Textbox(label='Attributes')
+            with gr.Column(scale=2, min_width=400):
+                result3_output = gr.Image(type='filepath', width=400)
 
-        btn.click(trufor, inputs=[image_input], outputs=[result1_output, result2_output])
+
+            def predicts(image_path):
+                # Trufor
+                trufor_results = trufor(image_path)
+
+                if trufor_results[0] > threshold:
+                    # SeqDeepFake
+                    seq_results = attribute_make_result(image_path)
+                    result1_output = trufor_results[0]
+                    result2_output = seq_results[1]
+                    result3_output = seq_results[2]
+
+                else:
+                    result1_output = trufor_results[0]
+                    result2_output = None
+                    result3_output = None
+
+                return result1_output, result2_output, result3_output
+
+            btn.click(predicts, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
+
+    with gr.Tab('Facial Components'):
+        gr.Markdown('detect - nose, eye, eyebrow, lip, hair')
+
+        with gr.Row():
+            with gr.Column(scale=1, min_width=600):
+                image_path = gr.Image(type='filepath', value='./.asset/component.png')
+                btn = gr.Button(value='Predict')
+                result1_output = gr.Textbox(label='DeepFake(0-1)')
+                result2_output = gr.Textbox(label='Components')
+            with gr.Column(scale=2, min_width=400):
+                result3_output = gr.Image(type='filepath', width=400)
+
+
+            def predicts(image_path):
+                # Trufor
+                trufor_results = trufor(image_path)
+
+                if trufor_results[0] > threshold:
+                    # SeqDeepFake
+                    seq_results = component_make_result(image_path)
+                    result1_output = trufor_results[0]
+                    result2_output = seq_results[1]
+                    result3_output = seq_results[2]
+
+                else:
+                    result1_output = trufor_results[0]
+                    result2_output = None
+                    result3_output = None
+
+                return result1_output, result2_output, result3_output
+
+            btn.click(predicts, inputs=[image_path], outputs=[result1_output, result2_output, result3_output])
 
 
 if __name__ == '__main__':
+    threshold = 0.5
     demo.launch(share=True)

@@ -10,20 +10,15 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 
 ### 📦 Antitifake aims to provide the following :   
 #### Detect
-- SeqDeepfake
-    - Facial Attributes: bangs, eyeglasses, beard, smiling, young
-    
-    ![attributes](./.asset/attributes.png)
+Determine whether an input image is deepfake(0 to 1) then extract manipulated parts if the resulting value is higher than threshold(0.5).
+
+- Facial Attributes: bangs, eyeglasses, beard, smiling, young
   
-    - Facial Components: nose, eye, eyebrow, lip, hair
-
-    ![components](./.asset/components.png)
-
-
-- TruFor
-    - Interprets deepfake detection numerically based on a scale from 0 to 1.
-
-    ![trufor_result](./.asset/trufor_result.png)
+  ![attributes](./.asset/attribute_result.png)
+  
+- Facial Components: nose, eye, eyebrow, lip, hair
+  
+  ![components](./.asset/component_result.png)
 
 ### Setting
 #### 1. set trained model files(.pt)
@@ -47,6 +42,16 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 ⚠️You must set **cuda compute capability**(TORCH_CUDA_ARCH_LIST=compute capability) before install requirements.txt
 1. ```export TORCH_CUDA_ARCH_LIST=8.6```
 2. ```pip3 install -r requirements.txt```
+
+#### 3. set threshold
+[app.py](app.py)
+
+```python
+# line 94
+if __name__ == '__main__':
+    threshold = 0.5
+    demo.launch(share=True)
+```
 
 ### 🧿 Antitifake is composed of:       
 #### Model
