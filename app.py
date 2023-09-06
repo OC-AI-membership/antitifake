@@ -31,7 +31,7 @@ with gr.Blocks() as demo:
             with gr.Column(scale=1, min_width=600):
                 image_path = gr.Image(type='filepath', value='./.asset/attribute.png')
                 btn = gr.Button(value='Predict')
-                result1_output = gr.Textbox(label='DeepFake(0-1)')
+                result1_output = gr.Textbox(label='DeepFake')
                 result2_output = gr.Textbox(label='Attributes')
             with gr.Column(scale=2, min_width=400):
                 result3_output = gr.Image(type='filepath', width=400)
@@ -44,12 +44,12 @@ with gr.Blocks() as demo:
                 if trufor_results[0] > threshold:
                     # SeqDeepFake
                     seq_results = attribute_make_result(image_path)
-                    result1_output = trufor_results[0]
+                    result1_output = True
                     result2_output = seq_results[1]
                     result3_output = seq_results[2]
 
                 else:
-                    result1_output = trufor_results[0]
+                    result1_output = False
                     result2_output = None
                     result3_output = None
 
@@ -64,7 +64,7 @@ with gr.Blocks() as demo:
             with gr.Column(scale=1, min_width=600):
                 image_path = gr.Image(type='filepath', value='./.asset/component.png')
                 btn = gr.Button(value='Predict')
-                result1_output = gr.Textbox(label='DeepFake(0-1)')
+                result1_output = gr.Textbox(label='DeepFake')
                 result2_output = gr.Textbox(label='Components')
             with gr.Column(scale=2, min_width=400):
                 result3_output = gr.Image(type='filepath', width=400)
@@ -77,12 +77,12 @@ with gr.Blocks() as demo:
                 if trufor_results[0] > threshold:
                     # SeqDeepFake
                     seq_results = component_make_result(image_path)
-                    result1_output = trufor_results[0]
+                    result1_output = True
                     result2_output = seq_results[1]
                     result3_output = seq_results[2]
 
                 else:
-                    result1_output = trufor_results[0]
+                    result1_output = False
                     result2_output = None
                     result3_output = None
 

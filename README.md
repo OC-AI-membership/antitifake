@@ -10,8 +10,9 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 
 ### 📦 Antitifake aims to provide the following :   
 #### Detect
-Determine whether an input image is deepfake(0 to 1) then extract manipulated parts if the resulting value is higher than threshold(0.5).
+predict input image is deepfake, then return True and extract manipulated parts with image if the resulting value is higher than threshold(0.5).
 
+#### true
 - Facial Attributes: bangs, eyeglasses, beard, smiling, young
   
   ![attributes](./.asset/attribute_result.png)
@@ -19,6 +20,10 @@ Determine whether an input image is deepfake(0 to 1) then extract manipulated pa
 - Facial Components: nose, eye, eyebrow, lip, hair
   
   ![components](./.asset/component_result.png)
+
+#### False
+
+  ![false](./.asset/false_result.png)
 
 ### Setting
 #### 1. set trained model files(.pt)
