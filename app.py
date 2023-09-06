@@ -1,5 +1,5 @@
-from seqdeepfake_ import attribute_predict, component_predict
-from groundingdino_ import dino_predict
+from SeqDeepFake.src.seqdeepfake_ import attribute_predict, component_predict
+from GroundingDINO.src.groundingdino_ import dino_predict
 from TruFor.src.trufor_ import trufor
 import gradio as gr
 
