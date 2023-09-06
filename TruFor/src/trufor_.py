@@ -48,6 +48,14 @@ if device != 'cpu':
     cudnn.deterministic = config.CUDNN.DETERMINISTIC
     cudnn.enabled = config.CUDNN.ENABLED
 
+if config.TEST.MODEL_FILE:
+    model_state_file = config.TEST.MODEL_FILE
+else:
+    raise ValueError("Model file is not specified.")
+
+print('=> loading model from {}'.format(model_state_file))
+checkpoint = torch.load(model_state_file, map_location=torch.device(device))
+
 def trufor(img):
     save_np = True
 
@@ -55,13 +63,7 @@ def trufor(img):
     rgb = torch.tensor(img_RGB.transpose(2, 0, 1), dtype=torch.float) / 255.0
     rgb = rgb.unsqueeze(0)
 
-    if config.TEST.MODEL_FILE:
-        model_state_file = config.TEST.MODEL_FILE
-    else:
-        raise ValueError("Model file is not specified.")
 
-    print('=> loading model from {}'.format(model_state_file))
-    checkpoint = torch.load(model_state_file, map_location=torch.device(device))
 
     if config.MODEL.NAME == 'detconfcmx':
         
