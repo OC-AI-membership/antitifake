@@ -71,9 +71,9 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 
 
 
- 
+<!--
 ### 📚 Check Antitifake [Documentation](https:///) for more info.   
-
+-->
 [docs-shield]: https://img.shields.io/badge/info-docs-blue
 [docs-url]: https://loxilb-io.github.io/loxilbdocs/
 [slack=shield]: https://img.shields.io/badge/Community-Join%20Slack-blue
