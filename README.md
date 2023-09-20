@@ -11,14 +11,10 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 ### 📦 Antitifake aims to provide the following :   
 #### Detect
 - SeqDeepfake
-    - Facial Attributes: bangs, eyeglasses, beard, smiling, young
+    - Facial detection that predict up to 5 elements per image. 
+    - bangs, eyeglasses, beard, smiling, young, nose, eye, eyebrow, lip, hair
     
-    ![attributes](./.asset/attributes.png)
-  
-    - Facial Components: nose, eye, eyebrow, lip, hair
-
-    ![components](./.asset/components.png)
-
+      ![seqdeepfake_result](./.asset/seqdeepfake_result.png)
 
 - TruFor
     - Interprets deepfake detection numerically based on a scale from 0 to 1.
@@ -30,18 +26,7 @@ Antitifake is an open source deepfake detection tool for consolidated methods.
 - this source contain trained model
   - GPU: NVIDIA RTX A5000
   - BACKBONE: resnet50
-  - ACC: facial_attributes=50.1550%, facial_components=49.3966%
-- if you want to use your own model
-  1. [SeqDeepFake](https://github.com/rshaojimmy/SeqDeepFake) ```sh train.sh &```
-  2. put model file in each folder, [📁 facial_attributes](./SeqDeepFake/results/facial_attributes) & [📁 facial_components](./SeqDeepFake/results/facial_components)
-  3. change files [seqdeepfake_.py](./seqdeepfake_.py)
-     ```python
-     # line 10
-     attribute_checkpoint = './SeqDeepFake/results/facial_attributes/best_model_adaptive.pt'
-     component_checkpoint = './SeqDeepFake/results/facial_components/best_model_adaptive.pt'
-     # line 15
-     model_config = Config('./SeqDeepFake/configs/r50.json')
-     ```
+  - ACC: 49.57%
   
 #### 2. to run app.py
 ⚠️You must set **cuda compute capability**(TORCH_CUDA_ARCH_LIST=compute capability) before install requirements.txt
